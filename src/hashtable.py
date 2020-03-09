@@ -1,3 +1,4 @@
+import hashlib 
 # '''
 # Linked List hash table key/value pair
 # '''
@@ -51,7 +52,19 @@ class HashTable:
 
         Fill this in.
         '''
-        pass
+        index = self._hash_mod(key)
+        the_hash_table = self.storage
+
+        if self.storage[index] is not None: 
+            new_key_value_pair = LinkedPair(key, value)
+            new_key_value_pair.next = self.storage[index]
+            self.storage[index] = new_key_value_pair
+        else: 
+            self.storage = LinkedPair(key, value)
+        return 
+        print(the_hash_table)
+
+        # print("storage:", self.storage)
 
 
 
