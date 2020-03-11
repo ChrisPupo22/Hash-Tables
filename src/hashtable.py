@@ -18,6 +18,7 @@ class HashTable:
         self.storage = [None] * capacity
 
 
+
     def _hash(self, key):
         '''
         Hash an arbitrary key and return an integer.
@@ -53,16 +54,22 @@ class HashTable:
         Fill this in.
         '''
         index = self._hash_mod(key)
-        the_hash_table = self.storage
-
-        if self.storage[index] is not None: 
-            new_key_value_pair = LinkedPair(key, value)
-            new_key_value_pair.next = self.storage[index]
-            self.storage[index] = new_key_value_pair
+        # the_hash_table = self.storage
+        if self.storage[index] is None: 
+            self.storage[index] = value
+        elif self.storage[index] is not None: 
+            old_head = self.storage[index]
+            print("old head:", old_head)
+            new_head = value
+            self.storage[index] = new_head
+            print("overwritten value: ", new_head)
         else: 
-            self.storage = LinkedPair(key, value)
-        return 
-        print(the_hash_table)
+            while self.storage[index].next 
+        # elif self.storage[index] is not None: 
+            
+        #     # print("error: key in use")
+        # else: 
+        #     self.storage[index] = value
 
         # print("storage:", self.storage)
 
@@ -76,7 +83,13 @@ class HashTable:
 
         Fill this in.
         '''
-        pass
+        index = self._hash_mod(key)
+        
+        if self.storage[index] is not None: 
+            self.storage[index] = None
+        else: 
+            print("Warning! Key not found")
+
 
 
     def retrieve(self, key):
@@ -87,7 +100,8 @@ class HashTable:
 
         Fill this in.
         '''
-        pass
+        index = self._hash_mod(key)
+        return self.storage[index]
 
 
     def resize(self):
@@ -97,7 +111,12 @@ class HashTable:
 
         Fill this in.
         '''
-        pass
+        old_storage = self.storage.copy()
+        self.capacity = self.capacity * 2
+        self.storage = [None] * self.capacity
+
+        for bucket_item in old_storage: 
+            self.insert(bucket_item, self.capacity )
 
 
 
